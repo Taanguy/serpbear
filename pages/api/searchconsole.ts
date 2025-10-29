@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../database/database';
 import Domain from '../../database/models/domain';
 import { fetchDomainSCData, getSearchConsoleApiInfo, readLocalSCData } from '../../utils/searchConsole';
-import verifyUser from '../../utils/verifyUser';
 
 type searchConsoleRes = {
    data: SCDomainDataType|null
@@ -16,10 +15,6 @@ type searchConsoleCRONRes = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
    await db.sync();
-   const authorized = verifyUser(req, res);
-   if (authorized !== 'authorized') {
-      return res.status(401).json({ error: authorized });
-   }
    if (req.method === 'GET') {
       return getDomainSearchConsoleData(req, res);
    }

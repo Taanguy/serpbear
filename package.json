@@ -49,12 +49,13 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.34.0",
     "sequelize-typescript": "^2.1.6",
-    "sqlite3": "^5.1.7",
+    "better-sqlite3": "^11.0.0",
     "umzug": "^3.8.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.0.0",
+    "@types/better-sqlite3": "^7.6.11",
     "@types/cookies": "^0.7.7",
     "@types/cryptr": "^4.0.1",
     "@types/isomorphic-fetch": "^0.0.36",

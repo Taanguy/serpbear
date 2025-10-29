@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
 import Icon from './Icon';
 
 type TopbarProps = {
@@ -13,21 +12,6 @@ const TopBar = ({ showSettings, showAddModal }:TopbarProps) => {
    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
    const router = useRouter();
    const isDomainsPage = router.pathname === '/domains';
-
-   const logoutUser = async () => {
-      try {
-         const fetchOpts = { method: 'POST', headers: new Headers({ 'Content-Type': 'application/json', Accept: 'application/json' }) };
-         const res = await fetch(`${window.location.origin}/api/logout`, fetchOpts).then((result) => result.json());
-         console.log(res);
-         if (!res.success) {
-            toast(res.error, { icon: '⚠️' });
-         } else {
-            router.push('/login');
-         }
-      } catch (fetchError) {
-         toast('Could not login, Ther Server is not responsive.', { icon: '⚠️' });
-      }
-   };
 
    return (
        <div className={`topbar flex w-full mx-auto justify-between 
@@ -74,11 +58,6 @@ const TopBar = ({ showSettings, showAddModal }:TopbarProps) => {
                <li className='block lg:inline-block lg:ml-5'>
                   <a className='block px-3 py-2 cursor-pointer' href='https://docs.serpbear.com/' target="_blank" rel='noreferrer'>
                      <Icon type="question" color={'#888'} size={14} /> Help
-                  </a>
-               </li>
-               <li className='block lg:inline-block lg:ml-5'>
-                  <a className='block px-3 py-2 cursor-pointer' onClick={() => logoutUser()}>
-                     <Icon type="logout" color={'#888'} size={14} /> Logout
                   </a>
                </li>
             </ul>

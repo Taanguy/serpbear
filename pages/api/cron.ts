@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../database/database';
 import Keyword from '../../database/models/keyword';
 import { getAppSettings } from './settings';
-import verifyUser from '../../utils/verifyUser';
 import refreshAndUpdateKeywords from '../../utils/refresh';
 
 type CRONRefreshRes = {
@@ -12,10 +11,6 @@ type CRONRefreshRes = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
    await db.sync();
-   const authorized = verifyUser(req, res);
-   if (authorized !== 'authorized') {
-      return res.status(401).json({ error: authorized });
-   }
    if (req.method === 'POST') {
       return cronRefreshkeywords(req, res);
    }

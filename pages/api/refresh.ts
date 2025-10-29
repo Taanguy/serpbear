@@ -4,7 +4,6 @@ import db from '../../database/database';
 import Keyword from '../../database/models/keyword';
 import refreshAndUpdateKeywords from '../../utils/refresh';
 import { getAppSettings } from './settings';
-import verifyUser from '../../utils/verifyUser';
 import parseKeywords from '../../utils/parseKeywords';
 import { scrapeKeywordFromGoogle } from '../../utils/scraper';
 
@@ -25,10 +24,6 @@ type KeywordSearchResultRes = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
    await db.sync();
-   const authorized = verifyUser(req, res);
-   if (authorized !== 'authorized') {
-      return res.status(401).json({ error: authorized });
-   }
    if (req.method === 'GET') {
       return getKeywordSearchResults(req, res);
    }

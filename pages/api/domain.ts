@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Cryptr from 'cryptr';
 import db from '../../database/database';
 import Domain from '../../database/models/domain';
-import verifyUser from '../../utils/verifyUser';
 
 type DomainGetResponse = {
    domain?: DomainType | null
@@ -10,12 +9,11 @@ type DomainGetResponse = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-   const authorized = verifyUser(req, res);
-   if (authorized === 'authorized' && req.method === 'GET') {
+   if (req.method === 'GET') {
       await db.sync();
       return getDomain(req, res);
    }
-   return res.status(401).json({ error: authorized });
+   return res.status(405).json({ error: 'Method not allowed' });
 }
 
 const getDomain = async (req: NextApiRequest, res: NextApiResponse<DomainGetResponse>) => {

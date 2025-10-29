@@ -31,7 +31,7 @@ When you [integrate Google Search Console](https://docs.serpbear.com/miscellaneo
 #### Getting Started
 
 - **Step 1:** Deploy & Run the App.
-- **Step 2:** Access your App and Login.
+- **Step 2:** Access your App.
 - **Step 3:** Add your First domain.
 - **Step 4:** Get a free API key from ScrapingRobot or select a paid provider (see below) . Skip if you want to use Proxy ips.
 - **Step 5:** Setup the Scraping API/Proxy from the App's Settings interface.

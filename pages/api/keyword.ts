@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../database/database';
 import Keyword from '../../database/models/keyword';
 import parseKeywords from '../../utils/parseKeywords';
-import verifyUser from '../../utils/verifyUser';
 
 type KeywordGetResponse = {
    keyword?: KeywordType | null
@@ -10,12 +9,11 @@ type KeywordGetResponse = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-   const authorized = verifyUser(req, res);
-   if (authorized === 'authorized' && req.method === 'GET') {
+   if (req.method === 'GET') {
       await db.sync();
       return getKeyword(req, res);
    }
-   return res.status(401).json({ error: authorized });
+   return res.status(405).json({ error: 'Method not allowed' });
 }
 
 const getKeyword = async (req: NextApiRequest, res: NextApiResponse<KeywordGetResponse>) => {
